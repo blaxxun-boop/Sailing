@@ -74,7 +74,9 @@ public class Sailing : BaseUnityPlugin
 		sailing.Description.English("Increases the health of ships built by you, sailing speed of ships commanded by you and your exploration radius while on a ship.");
 		sailing.Name.German("Segeln");
 		sailing.Description.German("Erhöht die Lebenspunkte von dir gebauter Schiffe, erhöht die Geschwindigkeit von Schiffen, die du steuerst und erhöht deinen Erkundungsradius, wenn du dich auf einem Schiff befindest.");
-		sailing.Configurable = false;
+		sailing.Name.Chinese("航行");
+		sailing.Description.Chinese("提高你建造的船只的生命值，你驾驶时的航行速度和你在船上的探索半径");		
+  		sailing.Configurable = false;
 
 		serverConfigLocked = config("1 - General", "Lock Configuration", Toggle.On, "If on, the configuration is locked and can be changed by server admins only.");
 		configSync.AddLockingConfigEntry(serverConfigLocked);
