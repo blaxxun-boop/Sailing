@@ -173,7 +173,8 @@ public class Sailing : BaseUnityPlugin
 				return true;
 			}
 
-			if (Input.GetKey(shipNudgeModifierkey.Value.MainKey) && shipNudgeModifierkey.Value.Modifiers.All(Input.GetKey))
+			IInputSystem input = UnityInput.Current;
+			if (input.GetKey(shipNudgeModifierkey.Value.MainKey) && shipNudgeModifierkey.Value.Modifiers.All(input.GetKey))
 			{
 				if ((DateTime.UtcNow - lastNudge).TotalSeconds < 1)
 				{
