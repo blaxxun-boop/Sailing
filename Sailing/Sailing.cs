@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -68,12 +68,36 @@ public class Sailing : BaseUnityPlugin
 
 	private static Sailing mod = null!;
 
+	private static readonly Dictionary<string, Dictionary<string, string>> translations = new()
+	{
+		["German"] = new Dictionary<string, string>
+		{
+			["Please don't nudge your ship with your butt."] = "Bitte schubse dein Schiff nicht mit deinem Hintern an.",
+			["Your sailing skill is too low to sail this ship with reduced sail."] = "Deine Segelfertigkeit ist zu niedrig, um dieses Schiff mit gerefftem Segel zu segeln.",
+			["Your sailing skill is too low to sail this ship with full sail."] = "Deine Segelfertigkeit ist zu niedrig, um dieses Schiff mit vollem Segel zu segeln.",
+			["Your sailing skill is too low to command this ship."] = "Deine Segelfertigkeit ist zu niedrig, um dieses Schiff zu steuern.",
+			["Push ship"] = "Schiff schieben",
+		},
+		["Ukrainian"] = new Dictionary<string, string>
+		{
+			["Please don't nudge your ship with your butt."] = "Будь ласка, не штовхайте свій корабель дупою.",
+			["Your sailing skill is too low to sail this ship with reduced sail."] = "Ваш навик мореплавства замалий, щоб плисти на цьому кораблі зі зменшеним вітрилом.",
+			["Your sailing skill is too low to sail this ship with full sail."] = "Ваш навик мореплавства замалий, щоб плисти на цьому кораблі на повних вітрилах.",
+			["Your sailing skill is too low to command this ship."] = "Ваш навик мореплавства замалий, щоб керувати цим кораблем.",
+			["Push ship"] = "Штовхнути корабель",
+		},
+	};
+
+	private static string Translate(string english) => translations.TryGetValue(Localization.instance.GetSelectedLanguage(), out Dictionary<string, string> language) && language.TryGetValue(english, out string translated) ? translated : english;
+
 	public void Awake()
 	{
 		sailing = new Skill("Sailing", "sailing.png");
 		sailing.Description.English("Increases the health of ships built by you, sailing speed of ships commanded by you and your exploration radius while on a ship.");
 		sailing.Name.German("Segeln");
 		sailing.Description.German("Erhöht die Lebenspunkte von dir gebauter Schiffe, erhöht die Geschwindigkeit von Schiffen, die du steuerst und erhöht deinen Erkundungsradius, wenn du dich auf einem Schiff befindest.");
+		sailing.Name.Ukrainian("Мореплавство");
+		sailing.Description.Ukrainian("Збільшує міцність кораблів, які ви збудували, швидкість кораблів під вашим керуванням і радіус дослідження, поки ви на кораблі.");
 		sailing.Configurable = false;
 
 		serverConfigLocked = config("1 - General", "Lock Configuration", Toggle.On, "If on, the configuration is locked and can be changed by server admins only.");
@@ -189,7 +213,7 @@ public class Sailing : BaseUnityPlugin
 				}
 				else
 				{
-					Player.m_localPlayer.Message(MessageHud.MessageType.Center, "Please don't nudge your ship with your butt.");
+					Player.m_localPlayer.Message(MessageHud.MessageType.Center, Translate("Please don't nudge your ship with your butt."));
 				}
 
 				return false;
@@ -209,7 +233,7 @@ public class Sailing : BaseUnityPlugin
 				return;
 			}
 
-			__result += Localization.instance.Localize($"\n[<b><color=yellow>{shipNudgeModifierkey.Value}</color> + <color=yellow>$KEY_Use</color></b>] Push ship");
+			__result += Localization.instance.Localize($"\n[<b><color=yellow>{shipNudgeModifierkey.Value}</color> + <color=yellow>$KEY_Use</color></b>] {Translate("Push ship")}");
 		}
 	}
 
@@ -280,14 +304,14 @@ public class Sailing : BaseUnityPlugin
 		{
 			if (__instance.m_speed is Ship.Speed.Slow && shipHalfRequirement.TryGetValue(__instance.GetComponent<Piece>().m_name, out ConfigEntry<int> requiredHalfLevel) && requiredHalfLevel.Value > Mathf.RoundToInt(Player.m_localPlayer.GetSkillFactor("Sailing") * 100))
 			{
-				Player.m_localPlayer.Message(MessageHud.MessageType.Center, "Your sailing skill is too low to sail this ship with reduced sail.");
+				Player.m_localPlayer.Message(MessageHud.MessageType.Center, Translate("Your sailing skill is too low to sail this ship with reduced sail."));
 
 				return false;
 			}
 
 			if (__instance.m_speed is Ship.Speed.Half && shipFullRequirement.TryGetValue(__instance.GetComponent<Piece>().m_name, out ConfigEntry<int> requiredFullLevel) && requiredFullLevel.Value > Mathf.RoundToInt(Player.m_localPlayer.GetSkillFactor("Sailing") * 100))
 			{
-				Player.m_localPlayer.Message(MessageHud.MessageType.Center, "Your sailing skill is too low to sail this ship with full sail.");
+				Player.m_localPlayer.Message(MessageHud.MessageType.Center, Translate("Your sailing skill is too low to sail this ship with full sail."));
 
 				return false;
 			}
@@ -306,7 +330,7 @@ public class Sailing : BaseUnityPlugin
 				return true;
 			}
 
-			Player.m_localPlayer.Message(MessageHud.MessageType.Center, "Your sailing skill is too low to command this ship.");
+			Player.m_localPlayer.Message(MessageHud.MessageType.Center, Translate("Your sailing skill is too low to command this ship."));
 			return false;
 		}
 	}
