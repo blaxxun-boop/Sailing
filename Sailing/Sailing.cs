@@ -97,7 +97,7 @@ public class Sailing : BaseUnityPlugin
 		sailing.Name.German("Segeln");
 		sailing.Description.German("Erhöht die Lebenspunkte von dir gebauter Schiffe, erhöht die Geschwindigkeit von Schiffen, die du steuerst und erhöht deinen Erkundungsradius, wenn du dich auf einem Schiff befindest.");
 		sailing.Name.Ukrainian("Мореплавство");
-		sailing.Description.Ukrainian("Збільшує міцність кораблів, які ви збудували, швидкість кораблів під вашим керуванням і радіус дослідження, поки ви на кораблі.");
+		sailing.Description.Ukrainian("Покращує:\n– міцність ваших кораблів\n– швидкість плавання\n– радіус дослідження");
 		sailing.Configurable = false;
 
 		serverConfigLocked = config("1 - General", "Lock Configuration", Toggle.On, "If on, the configuration is locked and can be changed by server admins only.");
