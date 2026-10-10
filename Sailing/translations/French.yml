@@ -1,0 +1,7 @@
+sailing_skill: "Navigation"
+sailing_skill_description: "Augmente les points de vie des bateaux construis par vous, la vitesse de navigation des bateaux conduis par vous et le rayon d'exploration sur un bateau."
+sailing_nudge_interact: "Pousser le bateau"
+sailing_nudge_failed: "S'il vous plaît, ne poussez pas votre bateau avec vos fesses."
+sailing_no_full_sail: "Votre compétence de navigation est trop faible pour conduire ce bateau à pleine voile."
+sailing_no_reduced_sail: "Votre compétence de navigation est trop faible pour conduire ce bateau à voile réduite."
+sailing_no_sail: "Votre compétence de navigation est trop faible pour commander ce bateau."

@@ -101,6 +101,7 @@
         <Compile Include="Properties\AssemblyInfo.cs"/>
     </ItemGroup>
     <ItemGroup>
+        <EmbeddedResource Include="translations\French.yml" />
         <EmbeddedResource Include="translations\Ukrainian.yml" />
         <EmbeddedResource Include="translations\English.yml" />
         <EmbeddedResource Include="icons\sailing.png"/>
